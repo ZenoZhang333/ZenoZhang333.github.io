@@ -165,25 +165,22 @@ int main(int argc, char *argv[])
 <h3 id="网速、带宽检测"><a href="#网速、带宽检测" class="headerlink" title="网速、带宽检测"></a>网速、带宽检测</h3><p>Iperf工具测网络实际传输速度。</p>
 <p>先关防火墙、再启用服务，<br>服务器端处于</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ipserf -s</span><br><span class="line">&#96;&#96;&#96;状态</span><br><span class="line"></span><br><span class="line">客户端</span><br><span class="line">&#96;&#96;&#96;[root@localhost~]</span><br><span class="line">iperf -c 10.128.129.114</span><br></pre></td></tr></table></figure>
-<p>###安包</p>
-<p>1、安装tar   -zxvf    test.tgz  -C指定目录</p>
+<h3 id="安包"><a href="#安包" class="headerlink" title="安包"></a>安包</h3><p>1、安装tar   -zxvf    test.tgz  -C指定目录</p>
 <p>1&gt; # rpm -i example.rpm 安装 example.rpm 包；</p>
 <p>2&gt; # rpm -iv example.rpm 安装包并过程中显示正在安装的文件信息；</p>
 <p>3&gt; # rpm -ivh example.rpm 安装包并中显示正在安装的文件信息及安装进度</p>
 <p>4&gt; # rpm -ivh –-nodeps强制安装</p>
 <p>2、查看libvirt相关包安装情况 rpm -qa |grep libvirt</p>
 <p>3、yum本地安装yum localinstall openvswitch-2.7.3-1.x86_64.rpm</p>
-<p>###Driver FW</p>
-<p>1、查看driver </p>
+<h3 id="Driver-FW"><a href="#Driver-FW" class="headerlink" title="Driver FW"></a>Driver FW</h3><p>1、查看driver </p>
 <p><code>[root@localhost~] lspci -vvv | grep raid </code><br><code>[root@localhost~] modinfo meggraid-sas | grep version </code></p>
 <p>2、做成JOB模式，用SeaChest刷盘FW<br><code>./seachest --scan</code>是check FW<code>./seachest --downloadFW fw.image -d /dev/sda</code></p>
 <p>3、Stor tool查看raid信息</p>
-<p>安装：解压至rpm包  rpm -ivh XXX.rpm<br>在解压开的目录下<br>cd  ./storcli/srotcli64<br><code>./storcli/srotcli64 /c0 show</code> 查看RAID信息<br>###复制</p>
-<p>dir2目录不存在，直接使用<code>cp -r dir1 dir2</code></p>
+<p>安装：解压至rpm包  rpm -ivh XXX.rpm<br>在解压开的目录下<br>cd  ./storcli/srotcli64<br><code>./storcli/srotcli64 /c0 show</code> 查看RAID信息</p>
+<h3 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h3><p>dir2目录不存在，直接使用<code>cp -r dir1 dir2</code></p>
 <p>dir2目录已存在，使用<code>cp -r dir1/. dir2</code></p>
 <p><code>rm -rf /home/www/statics/*</code>否则每个文件提示确认，cp -rf 也一样</p>
-<p>###盘和分区</p>
-<p>Fdisk  /dev/sda </p>
+<h3 id="盘和分区"><a href="#盘和分区" class="headerlink" title="盘和分区"></a>盘和分区</h3><p>Fdisk  /dev/sda </p>
 <p>Partprobe 不需重启就可以用此分区</p>
 <p><strong>修改硬盘格式</strong></p>
 <p>进入parted分区工具 <code>#parted  dev/sdb</code><br>修改为GPT  <code> #mklabel gpt</code><br>查看硬盘格式  <code> #print</code><br>创建主分区，从0到2190GB<code> #mkpart primary 0 2190gb</code><br>格式化盘 <code>#mkfs -t ntfs dev/sdb</code><br>挂载到到    <code>/mnt/data目录中mount /dev/sdb1 data</code> </p>
@@ -191,25 +188,20 @@ int main(int argc, char *argv[])
 <p>ext4/3/2 ，以格式化 /dev/sda1 分区为例：<br><code>$ sudo umount /dev/sda1</code>  必须先卸载该分区<br><code>$ sudo mkfs.ext4 /dev/sda1 </code>格式化为ext4分区<br>RAIDOS下查看<code># cat /proc/scsi/scsi</code></p>
 <p>查看硬盘的写缓存<code>hdparm -W  /dev/sda</code></p>
 <p>关闭硬盘的写缓存<code>hdparm -W 0 /dev/sda</code></p>
-<p>###ssh与scp</p>
-<p>ssh登录```ssh <a href="mailto:&#114;&#x6f;&#x6f;&#116;&#64;&#49;&#48;&#x2e;&#x33;">&#114;&#x6f;&#x6f;&#116;&#64;&#49;&#48;&#x2e;&#x33;</a>···</p>
+<h3 id="ssh与scp"><a href="#ssh与scp" class="headerlink" title="ssh与scp"></a>ssh与scp</h3><p>ssh登录```ssh <a href="mailto:&#114;&#111;&#111;&#x74;&#64;&#x31;&#48;&#46;&#x33;">&#114;&#111;&#111;&#x74;&#64;&#x31;&#48;&#46;&#x33;</a>···</p>
 <p>scp源到目的<code>scp root@10.1:/test1 root@10.2:/test1</code></p>
-<p>###PID</p>
-<p>查看pid <code>[root@localhost test6]# ps -ef|grep ssh</code></p>
-<p>###校验值</p>
-<pre><code>certutil -hashfile filename MD5
+<h3 id="PID"><a href="#PID" class="headerlink" title="PID"></a>PID</h3><p>查看pid <code>[root@localhost test6]# ps -ef|grep ssh</code></p>
+<h3 id="校验值"><a href="#校验值" class="headerlink" title="校验值"></a>校验值</h3><pre><code>certutil -hashfile filename MD5
 certutil -hashfile filename SHA1
 certutil -hashfile filename SHA256</code></pre>
-<p>###压缩解压</p>
-<p>压缩<code>tar -zcvf archive_name.tar.gz filename</code></p>
+<h3 id="压缩解压"><a href="#压缩解压" class="headerlink" title="压缩解压"></a>压缩解压</h3><p>压缩<code>tar -zcvf archive_name.tar.gz filename</code></p>
 <p>解压<code>tar -zxvf archive_name.tar.gz -C 指定目录</code></p>
-<p>###BMC</p>
-<p>IPMI查看BMC ip<code>ipmitool lan print 1</code></p>
+<h3 id="BMC"><a href="#BMC" class="headerlink" title="BMC"></a>BMC</h3><p>IPMI查看BMC ip<code>ipmitool lan print 1</code></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zenozhang333.github.io/2020/11/29/%E6%9D%82%E8%AE%B0/" data-id="cki5ne6eo0001ycym6hfdb5xd" class="article-share-link">Share</a>
+      <a data-url="https://zenozhang333.github.io/2020/11/29/%E6%9D%82%E8%AE%B0/" data-id="cki5nsr6r0001jgymbrfv9d9c" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,7 +250,7 @@ certutil -hashfile filename SHA256</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://zenozhang333.github.io/2020/11/24/hello-world/" data-id="cki5ne6ee0000ycymchirfpza" class="article-share-link">Share</a>
+      <a data-url="https://zenozhang333.github.io/2020/11/24/hello-world/" data-id="cki5nsr690000jgym96uofykg" class="article-share-link">Share</a>
       
       
     </footer>
